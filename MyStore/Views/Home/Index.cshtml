@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-primary" role="alert">
+        @ViewBag.Message
+    </div>
+}
+<div class="jumbotron">
+    <h1>My Store!</h1>
+    <p class="lead">
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque feugiat ligula nibh, sed cursus ante pharetra non. Suspendisse id erat dictum ipsum scelerisque efficitur. Donec viverra iaculis massa, et volutpat neque fermentum ut. Suspendisse potenti. Donec id gravida leo. Suspendisse in nisi ultrices, iaculis dui sit amet, suscipit urna. Suspendisse potenti. Aenean fermentum, quam a sagittis vulputate, elit quam molestie enim, non suscipit diam elit vitae nulla. Donec condimentum quis velit non gravida. Proin rhoncus quam a sem interdum, id suscipit ante tincidunt. Quisque ultrices commodo convallis. Aenean interdum cursus sollicitudin.
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Action("Products")
+    </div>
+</div>
+
+@section Scripts{
+
+
+
+    <script>
+        function addToCart(id) {
+            var link = "@Url.Action("AddToCart", "Home")" + "/" + id;
+
+            bootbox.confirm({
+            message: "Do you want to add this Item to your cart?",
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                    $.ajax({
+                            type: 'GET',
+                            url: link,
+                            success: function (response) {
+                                window.location.href = "@Url.Action("Index", "Home")/?message="+response.message;
+                            },
+                            error: function () {
+                                bootbox.alert("<p class=\"text-dark\">There was an error</p>");
+                            }
+                    });
+            }
+        });
+      }
+    </script>
+}
