@@ -87,6 +87,7 @@ namespace MyStore.Controllers
                 db.Orders.Add(order);
                 db.SaveChanges();
                 ViewBag.Order = order.Id;
+                Session["MyCart"] = null;
                 return View();
             } else
             {
