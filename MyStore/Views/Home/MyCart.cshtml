@@ -41,9 +41,14 @@
 
         <h2>Total Price : @ViewBag.Total</h2>
 
-        <a href="@Url.Action("SubmitOrder","Home")">Check Out!</a>
-    } else
+        <a href="@Url.Action("SubmitOrder", "Home")">Check Out!</a>
+    }
+    else
     {
         <p>No items!</p>
     }
+}
+else
+{
+    <p>No items!</p>
 }
