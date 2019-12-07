@@ -14,9 +14,10 @@ namespace MyStore.Models
         public DbSet<Compatibility> PCompatibilities { get; set; }
         public DbSet<Device> Devices { get; set; }
         public DbSet<PType> PTypes { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         public AppDbContext()
-            : base("name=DefaultConnection")
+            : base("name=DB")
         {
 
         }

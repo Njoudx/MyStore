@@ -1,4 +1,5 @@
-﻿using MyStore.Models;
+﻿using Microsoft.AspNet.Identity;
+using MyStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -52,9 +53,15 @@ namespace MyStore.Controllers
         public ActionResult MyCart()
         {
             List<Product> products = new List<Product>();
+            float total = 0f;
             if (Session["MyCart"] != null)
             {
                 products = (List<Product>)Session["MyCart"];
+                foreach (var prd in products)
+                {
+                    total = total + prd.Price;
+                }
+                ViewBag.Total = total;
             }
             //Take products stored in Session. 
             return View(products);
@@ -63,8 +70,29 @@ namespace MyStore.Controllers
 
         public ActionResult SubmitOrder()
         {
+            List<Product> products = new List<Product>();
+            Order order = new Order();
+            if (Session["MyCart"] != null)
+            {
+                products = (List<Product>)Session["MyCart"];
+            }
+            if (products.Count > 0)
+            {
+                foreach(var prd in products)
+                {
+                    order.TotalPrice = order.TotalPrice + prd.Price;
+                }
+                order.User = User.Identity.GetUserName();
+                order.Status = "Confirmed";
+                db.Orders.Add(order);
+                db.SaveChanges();
+                ViewBag.Order = order.Id;
+                return View();
+            } else
+            {
 
-            return View();
+                return HttpNotFound();
+            }
         }
     }
 }

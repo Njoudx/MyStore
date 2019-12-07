@@ -9,5 +9,7 @@ namespace MyStore.Models
     {
         public int Id { get; set; }
         public string User { get; set; }
+        public float TotalPrice { get; set; }
+        public string Status { get; set; }
     }
 }

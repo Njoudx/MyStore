@@ -13,6 +13,7 @@ namespace MyStore.Models
         public int CategoryId { get; set; }
         public PType Type { get; set; }
         public int PTypeId { get; set; }
+        public float Price { get; set; }
 
         public ICollection<Compatibility> Compatibilities { get; set; }
 
